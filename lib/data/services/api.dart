@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:hive/hive.dart';
+
+import 'package:movie_app/utils/env.dart';
 
 class Api {
   final Dio api = Dio();
   static String apiUrl = "https://api.themoviedb.org/3";
-  static const apiKey = "2ba6bd9b4022e968b8efe3f64c05c81e";
+  static const apiKey = API_KEY;
 
   static Future<Response> get(
           {required String endPoint,
