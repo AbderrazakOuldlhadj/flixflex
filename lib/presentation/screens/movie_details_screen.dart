@@ -6,6 +6,8 @@ import 'package:movie_app/data/models/movies_details_model.dart';
 import 'package:movie_app/presentation/components/components.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../utils/strings.dart';
+
 class MovieDetailsScreen extends StatefulWidget {
   bool isMovie;
   int id;
@@ -97,7 +99,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                                         decoration: BoxDecoration(
                                           color: primaryColor,
                                           borderRadius:
-                                              BorderRadius.circular(16),
+                                              BorderRadius.circular(10),
                                         ),
                                         child: Text(
                                           e.name!,
@@ -161,8 +163,8 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Text(
-                                  'Overview',
+                                 const Text(
+                                   AppStrings.kOverview,
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,

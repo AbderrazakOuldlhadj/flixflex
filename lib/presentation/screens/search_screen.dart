@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/bloc/search/search_cubit.dart';
 import 'package:movie_app/bloc/search/search_states.dart';
+import 'package:movie_app/utils/strings.dart';
 
 import '../components/components.dart';
 
@@ -18,7 +19,7 @@ class SearchScreen extends StatelessWidget {
           SearchCubit cubit = BlocProvider.of(ctx);
 
           return Scaffold(
-            appBar: AppBar(title: const Text('Search')),
+            appBar: AppBar(title: const Text(AppStrings.kSearch)),
             body: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Column(
@@ -32,14 +33,14 @@ class SearchScreen extends StatelessWidget {
                         Icons.search,
                         color: Colors.grey,
                       ),
-                      hintText: "Search",
+                      hintText: AppStrings.kSearch,
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(color: primaryColor),
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderSide: const BorderSide(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                     onFieldSubmitted: (value) async {
@@ -53,8 +54,8 @@ class SearchScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      TabWidget(text: 'Movies', id: 0, cubit: cubit),
-                      TabWidget(text: 'Series', id: 1, cubit: cubit),
+                      TabWidget(text: AppStrings.kMovies, id: 0, cubit: cubit),
+                      TabWidget(text: AppStrings.kSeries, id: 1, cubit: cubit),
                     ],
                   ),
                   const SizedBox(height: 10),
@@ -71,7 +72,7 @@ class SearchScreen extends StatelessWidget {
                                 (cubit.tapIndex == 1 &&
                                     (cubit.serieResults == null ||
                                         cubit.serieResults!.isEmpty))
-                            ? const Center(child: Text('No results'))
+                            ? const Center(child: Text(AppStrings.kNoResults))
                             : ListView.separated(
                                 physics: const BouncingScrollPhysics(),
                                 itemCount: cubit.tapIndex == 0

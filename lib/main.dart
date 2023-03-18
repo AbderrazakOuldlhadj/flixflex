@@ -1,12 +1,16 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:movie_app/bloc/movie/movie_cubit.dart';
+import 'package:movie_app/presentation/components/components.dart';
 import 'package:movie_app/presentation/screens/login_screen.dart';
 import 'package:movie_app/presentation/screens/home_screen.dart';
+import 'package:movie_app/utils/constants.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,9 +18,10 @@ Future<void> main() async {
   await Hive.initFlutter();
   await Hive.openBox('data');
 
-
   Widget home = LoginScreen();
-  home = Hive.box('data').get('uid') != null ? HomeScreen() : LoginScreen();
+  home = FirebaseAuth.instance.currentUser != null
+      ? const HomeScreen()
+      : LoginScreen();
 
   runApp(MyApp(home));
 }
@@ -36,14 +41,14 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           appBarTheme: const AppBarTheme(
             titleTextStyle: TextStyle(
-              color: Color(0xff204254),
+              color: primaryColor,
               fontWeight: FontWeight.bold,
               fontSize: 25.0,
             ),
             backgroundColor: Colors.transparent,
             elevation: 0.0,
             centerTitle: true,
-            iconTheme: IconThemeData(color: Color(0xff204254)),
+            iconTheme: IconThemeData(color: primaryColor),
             backwardsCompatibility: false,
             systemOverlayStyle: SystemUiOverlayStyle(
               statusBarColor: Colors.transparent,
@@ -56,11 +61,11 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.white,
           splashTransition: SplashTransition.slideTransition,
           splash: Image.asset(
-            'assets/icons/app_icon.png',
+            appIcon,
             height: 200,
             width: 200,
           ),
-          nextScreen: HomeScreen(),
+          nextScreen: home,
         ),
       ),
     );

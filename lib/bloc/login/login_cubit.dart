@@ -34,7 +34,7 @@ class LoginCubit extends Cubit<LoginStates> {
         .then((value) {
       print(value);
       emit(RegisterSuccessState());
-      Hive.box('data').put('uid', value.user!.uid);
+
     }).onError((error, stackTrace) {
       print(error);
       if (error is FirebaseAuthException) {
@@ -52,7 +52,7 @@ class LoginCubit extends Cubit<LoginStates> {
         .then((value) {
       print(value);
       emit(LoginSuccessState());
-      Hive.box('data').put('uid', value.user!.uid);
+
     }).onError((error, stackTrace) {
       print(error);
       if (error is FirebaseAuthException) {

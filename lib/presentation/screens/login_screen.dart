@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
+import 'package:movie_app/utils/constants.dart';
+import 'package:movie_app/utils/strings.dart';
 
 import '../../bloc/login/login_cubit.dart';
 import '../../bloc/login/login_states.dart';
@@ -56,7 +58,7 @@ class LoginScreen extends StatelessWidget {
                       children: [
                         Center(
                           child: Image.asset(
-                            'assets/icons/app_icon.png',
+                            appIcon,
                             height: 200,
                             width: 200,
                             fit: BoxFit.cover,
@@ -67,8 +69,9 @@ class LoginScreen extends StatelessWidget {
                             style: titleTextStyle),
                         const SizedBox(height: 20),
                         Text(
-                            "${cubit.isLogin ? "Login" : "Register"} now to chill with newest movies",
-                            style: subTitleTextStyle),
+                          "${cubit.isLogin ? AppStrings.kLogin : AppStrings.kRegister} ${AppStrings.knowToChillWithTheNewestMovies}",
+                          style: subTitleTextStyle,
+                        ),
                         const SizedBox(height: 40),
                         Form(
                           key: formKey,
@@ -83,21 +86,21 @@ class LoginScreen extends StatelessWidget {
                                     Icons.email_outlined,
                                     color: Colors.grey,
                                   ),
-                                  hintText: "Email Address",
+                                  hintText: AppStrings.kEmailAddress,
                                   focusedBorder: OutlineInputBorder(
                                     borderSide:
                                         const BorderSide(color: primaryColor),
-                                    borderRadius: BorderRadius.circular(16),
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide:
                                         const BorderSide(color: Colors.grey),
-                                    borderRadius: BorderRadius.circular(16),
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
                                 ),
                                 validator: (value) {
                                   if (value!.isEmpty || !value.contains("@")) {
-                                    return "Invalid email";
+                                    return AppStrings.kInvalidEmail;
                                   }
                                   return null;
                                 },
@@ -123,21 +126,21 @@ class LoginScreen extends StatelessWidget {
                                       color: Colors.grey,
                                     ),
                                   ),
-                                  hintText: "Password",
+                                  hintText: AppStrings.kPassword,
                                   focusedBorder: OutlineInputBorder(
                                     borderSide:
                                         const BorderSide(color: primaryColor),
-                                    borderRadius: BorderRadius.circular(16),
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide:
                                         const BorderSide(color: Colors.grey),
-                                    borderRadius: BorderRadius.circular(16),
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
                                 ),
                                 validator: (value) {
                                   if (value!.length < 6) {
-                                    return "password must have 6 characters";
+                                    return AppStrings.kpasswordMustHave6Characters;
                                   }
                                   return null;
                                 },
@@ -152,13 +155,13 @@ class LoginScreen extends StatelessWidget {
                                         decoration: BoxDecoration(
                                           color: primaryColor,
                                           borderRadius:
-                                              BorderRadius.circular(16),
+                                              BorderRadius.circular(10),
                                         ),
                                         child: Center(
                                           child: Text(
                                             cubit.isLogin
-                                                ? "Login"
-                                                : "Register",
+                                                ? AppStrings.kLogin
+                                                : AppStrings.kRegister,
                                             style: const TextStyle(
                                                 fontSize: 20,
                                                 color: Colors.white),
@@ -193,14 +196,14 @@ class LoginScreen extends StatelessWidget {
                           children: [
                             Text(
                               !cubit.isLogin
-                                  ? "Don't have an account? "
-                                  : "I already have an account",
+                                  ? AppStrings.kDontHaveAnAccount
+                                  : AppStrings.kIAlreadyHaveAnAccount,
                               style: const TextStyle(fontSize: 16),
                             ),
                             InkWell(
                               onTap: () => cubit.toggleLoginRegister(),
                               child: Text(
-                                !cubit.isLogin ? " Login" : " Register",
+                                !cubit.isLogin ? " ${AppStrings.kLogin}" : " ${AppStrings.kRegister}",
                                 style: const TextStyle(
                                   fontSize: 18,
                                   color: primaryColor,

@@ -6,7 +6,7 @@ import 'package:movie_app/data/models/movie_model.dart';
 import '../screens/login_screen.dart';
 import '../screens/movie_details_screen.dart';
 
-const primaryColor = Colors.pinkAccent;
+const primaryColor = Colors.deepPurpleAccent;
 const titleTextStyle = TextStyle(fontSize: 25, fontWeight: FontWeight.bold);
 const subTitleTextStyle = TextStyle(fontSize: 20);
 
@@ -29,7 +29,7 @@ Widget TabWidget({required String text, required int id, required cubit}) {
           ? null
           : BoxDecoration(
               color: primaryColor,
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(10),
               boxShadow: [
                 BoxShadow(
                     color: primaryColor.withOpacity(.5),
@@ -102,9 +102,9 @@ Widget MovieWidget({
                   begin: Alignment.bottomCenter,
                   end: Alignment.topCenter,
                   colors: [
-                    Colors.pinkAccent,
+                    primaryColor,
                     //Colors.redAccent.withOpacity(.5),
-                    Colors.pinkAccent.withOpacity(.1),
+                    primaryColor.withOpacity(.1),
                   ],
                 ),
               ),

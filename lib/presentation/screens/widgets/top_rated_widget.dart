@@ -6,6 +6,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_app/data/models/movie_model.dart';
+import 'package:movie_app/utils/caching.dart';
+import 'package:movie_app/utils/strings.dart';
 
 import '../../../bloc/movie/movie_cubit.dart';
 import '../../../bloc/movie/movie_states.dart';
@@ -62,8 +64,8 @@ class _TopRatedState extends State<TopRated> {
         ? const Center(
             child: CircularProgressIndicator(color: primaryColor),
           )
-        : Hive.box('data').get('cashedMovies') != null ||
-                Hive.box('data').get('cashedMovies') != null
+        : Hive.box('data').get(HiveKeys.cachedMovies) != null ||
+                Hive.box('data').get(HiveKeys.cachedSeries) != null
             ? SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 child: Column(
@@ -87,7 +89,7 @@ class _TopRatedState extends State<TopRated> {
                             movie: isConnected
                                 ? widget.cubit.top5Movies!.results![index]
                                 : MovieModel.fromJson(
-                                        Hive.box('data').get('cashedMovies'))
+                                        Hive.box('data').get(HiveKeys.cachedMovies))
                                     .results![index],
                             isMovie: true,
                           );
@@ -115,7 +117,7 @@ class _TopRatedState extends State<TopRated> {
                             movie: isConnected
                                 ? widget.cubit.top5Series!.results![index]
                                 : MovieModel.fromJson(
-                                        Hive.box('data').get('cashedSeries'))
+                                        Hive.box('data').get(HiveKeys.cachedSeries))
                                     .results![index],
                             isMovie: false,
                           );
@@ -129,7 +131,7 @@ class _TopRatedState extends State<TopRated> {
               )
             : const Center(
                 child: Text(
-                  "Check your connexion",
+                  AppStrings.kCheckYourConnexion,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               );

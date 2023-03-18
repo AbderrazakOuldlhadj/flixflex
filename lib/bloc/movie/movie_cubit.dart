@@ -4,6 +4,7 @@ import 'package:movie_app/data/models/movie_model.dart';
 import 'package:movie_app/data/models/movies_details_model.dart';
 import 'package:movie_app/data/models/video_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:movie_app/utils/caching.dart';
 
 import '../../data/services/api.dart';
 
@@ -74,7 +75,7 @@ class MovieCubit extends Cubit<MovieStates> {
       print(value);
        top5Movies = MovieModel.fromJson(value.data);
       await Hive.box('data')
-          .put('cashedMovies', MovieModel.fromJson(value.data).toJson());
+          .put(HiveKeys.cachedMovies, MovieModel.fromJson(value.data).toJson());
       emit(GetTop5MoviesSuccessState(top5Movies!));
     }).catchError((error) {
       print(error);
@@ -113,7 +114,7 @@ class MovieCubit extends Cubit<MovieStates> {
       print(value);
       top5Series = MovieModel.fromJson(value.data);
 
-      await Hive.box('data').put('cashedSeries', value.data);
+      await Hive.box('data').put(HiveKeys.cachedSeries, value.data);
       emit(GetTop5SeriesSuccessState(top5Series!));
     }).catchError((error, trace) {
       print(error);

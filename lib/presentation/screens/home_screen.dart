@@ -4,6 +4,7 @@ import 'package:movie_app/bloc/movie/movie_cubit.dart';
 import 'package:movie_app/bloc/movie/movie_states.dart';
 import 'package:movie_app/presentation/components/components.dart';
 import 'package:movie_app/presentation/screens/search_screen.dart';
+import 'package:movie_app/utils/strings.dart';
 import 'widgets/top_rated_widget.dart';
 
 import 'widgets/movie_list_widget.dart';
@@ -19,7 +20,7 @@ class HomeScreen extends StatelessWidget {
         MovieCubit cubit = BlocProvider.of(cx);
         return Scaffold(
           appBar: AppBar(
-            title: const Text("FlixFlex"),
+            title: const Text(AppStrings.kFlixFlex),
             actions: [
               InkWell(
                 onTap: () => Navigator.of(context)
@@ -35,22 +36,25 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SingleChildScrollView(
-                  child: Row(
-                    children: [
-                      TabWidget(text: 'Top 5 Rated', id: 0, cubit: cubit),
-                      const SizedBox(width: 8),
-                      TabWidget(text: 'Movies', id: 1, cubit: cubit),
-                      const SizedBox(width: 8),
-                      TabWidget(text: 'Series', id: 2, cubit: cubit),
-                    ],
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    TabWidget(text: AppStrings.kTop5Rated, id: 0, cubit: cubit),
+
+                    TabWidget(text: AppStrings.kMovies, id: 1, cubit: cubit),
+
+                    TabWidget(text: AppStrings.kSeries, id: 2, cubit: cubit),
+                  ],
                 ),
                 const SizedBox(height: 20),
                 cubit.tapIndex == 0
                     ? Expanded(child: TopRated(cubit, state))
                     : Expanded(
-                        child: MovieList(cubit, state, cubit.tapIndex == 1),
+                        child: MovieList(
+                          cubit,
+                          state,
+                          cubit.tapIndex == 1,
+                        ),
                       ),
               ],
             ),
