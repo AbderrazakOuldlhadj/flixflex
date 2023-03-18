@@ -1,4 +1,4 @@
-# movie_app
+# FlixFlex
 
 <h1 align="center">
   <br>
